@@ -42,3 +42,30 @@ saveButton.addEventListener("click", function () {
     journalEntryInput.value = "";
   }
 });
+
+
+// Listen for changes in the "journalEntries" location
+onValue(journalEntriesRef, function (snapshot) {
+  // Clear the contents of the journal entries list
+  journalEntriesList.innerHTML = "";
+
+  // Check if there are entries in the database
+  if (snapshot.exists()) {
+    // Loop through the entries and display them on the web page
+    snapshot.forEach(function (childSnapshot) {
+      const entry = childSnapshot.val().entry;
+
+      // Create a new list item element
+      const listItem = document.createElement("li");
+      listItem.textContent = entry;
+
+      // Append the list item to the journal entries list
+      journalEntriesList.appendChild(listItem);
+    });
+  } else {
+    // If there are no entries, display a message
+    const noEntriesMessage = document.createElement("li");
+    noEntriesMessage.textContent = "No journal entries yet.";
+    journalEntriesList.appendChild(noEntriesMessage);
+  }
+});
