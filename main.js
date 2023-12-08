@@ -69,3 +69,17 @@ onValue(journalEntriesRef, function (snapshot) {
     journalEntriesList.appendChild(noEntriesMessage);
   }
 });
+
+
+// Get reference to the "show-entry-button"
+const showEntryButton = document.getElementById("show-entry-button");
+
+// Add click event listener to the "show-entry-button"
+showEntryButton.addEventListener("click", function () {
+  // Toggle visibility of journal-entry and save-button
+  journalEntryInput.style.display = "block";
+  saveButton.style.display = "block";
+
+  // Hide the show-entry-button after it's clicked
+  showEntryButton.style.display = "none";
+});
