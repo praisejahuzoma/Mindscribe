@@ -20,3 +20,25 @@ const database = getDatabase(app);
 
 // Define a reference to the "journalEntries" location in the database
 const journalEntriesRef = ref(database, "journalEntries");
+
+// Get references to HTML elements
+const journalEntryInput = document.getElementById("journal-entry");
+const saveButton = document.getElementById("save-button");
+const journalEntriesList = document.getElementById("journal-entries-list");
+
+// Add a click event listener to the "Save" button
+saveButton.addEventListener("click", function () {
+  // Get the journal entry from the input field
+  const entry = journalEntryInput.value;
+
+  if (entry.trim() !== "") {
+    // Push the entry to the "journalEntries" in the database
+    push(journalEntriesRef, {
+      entry: entry,
+      timestamp: new Date().toISOString(), // Optional: You can add a timestamp for each entry
+    });
+
+    // Clear the input field after saving the entry
+    journalEntryInput.value = "";
+  }
+});
